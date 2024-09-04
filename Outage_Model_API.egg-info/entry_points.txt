@@ -1,0 +1,2 @@
+[console_scripts]
+outage-model = outage_model.main:cli
