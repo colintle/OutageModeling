@@ -16,7 +16,7 @@ def TRAIN_VALIDATE():
 
 @TRAIN_VALIDATE.command()
 @click.option('--pkl-file', type=click.Path(exists=True), default="dataDict.pkl", help='Path to the pickle file containing datasets.')
-@click.option('--output-model-file', type=click.Path(), default="gatrnn_model.pth", help='Path to save the trained model.')
+@click.option('--output-model-file', type=click.Path(), default="gatrnn_model.pth", help='Path to save the trained model as .pth file')
 @click.option('--epochs', type=int, default=1500, help='Number of training epochs.')
 @click.option('--learning-rate', type=float, default=0.001, help='Learning rate for the optimizer.')
 @click.option('--hidden-size', type=int, default=40, help='Hidden size for the model.')
