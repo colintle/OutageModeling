@@ -1,4 +1,4 @@
-# Outage Model CLI
+# Weather Impacts and Outage Prediction Using Distribution Networks' Topology and Physical Features - Outage Model CLI
 
 This project includes a Command Line Interface (CLI) for preprocessing weather and static data for model training, as well as training and validating a GATRNN model for predicting outages.
 
