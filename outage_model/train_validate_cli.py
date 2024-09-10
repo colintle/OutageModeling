@@ -19,9 +19,10 @@ def TRAIN_VALIDATE():
 @click.option('--output-model-file', type=click.Path(), default="gatrnn_model.pth", help='Path to save the trained model as .pth file')
 @click.option('--epochs', type=int, default=1500, help='Number of training epochs.')
 @click.option('--learning-rate', type=float, default=0.001, help='Learning rate for the optimizer.')
+@click.option('--optimizer', type=click.Choice(['adam', 'adamax', 'sgd'], case_sensitive=True), multiple=False, required=True, help='Optimizer for modeling')
 @click.option('--hidden-size', type=int, default=40, help='Hidden size for the model.')
 @click.option('--validation-scale', type=float, default=1.0, help='Scale for validation data.')
-def train_validate(pkl_file, output_model_file, epochs, learning_rate, hidden_size, validation_scale):
+def train_validate(pkl_file, output_model_file, epochs, learning_rate, optimizer, hidden_size, validation_scale):
     """Train and validate the GATRNN model with the given parameters."""
 
     torch.manual_seed(0)
@@ -60,7 +61,12 @@ def train_validate(pkl_file, output_model_file, epochs, learning_rate, hidden_si
         hidden_size=hidden_size
     )
     model.to(device)
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+    if optimizer == "adam":
+        optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+    elif optimizer == "adamax":
+        optimizer = optim.Adamax(model.parameters(), lr=learning_rate)
+    elif optimizer == "sgd":
+        optimizer = optim.SGD(model.parameters(), lr=learning_rate)
 
     train_loss, val_loss = trainValidate(
         model, optimizer, criterion, device, nDatasets_t, nDatasets_v, results, 
